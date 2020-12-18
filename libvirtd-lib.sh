@@ -30,7 +30,7 @@ function start_libvirtd {
 
     echo "Starting libvirtd"
     mkdir -p "$(dirname "$LIBVIRTD_PIDFILE")"
-    /usr/sbin/libvirtd -d -l "$LIBVIRTD_OPTS"
+    eval "/usr/sbin/libvirtd -d -l $LIBVIRTD_OPTS"
 }
 
 function stop_libvirtd {
