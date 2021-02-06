@@ -20,4 +20,4 @@ fi
 docker run --rm --privileged --workdir /tmp/ --entrypoint bash \
     --mount "type=bind,source=$(pwd)/Vagrantfile,target=/tmp/Vagrantfile" \
     electrocucaracha/vind \
-     -exec "source /libvirtd-lib.sh; start_libvirtd; cat /etc/os-release; vagrant up; vagrant ssh -- cat /etc/os-release"
+    -exec "source /libvirtd-lib.sh; start_libvirtd; cat /etc/os-release; vagrant up; vagrant ssh -- cat /etc/os-release"
