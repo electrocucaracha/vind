@@ -1,4 +1,4 @@
-FROM kubevirt/libvirt:20201125-c4405e2
+FROM kubevirt/libvirt:20210125-585df1e
 
 ENV VAGRANT_VERSION=2.2.14
 ENV CONFIGURE_ARGS='with-ldflags=-L/opt/vagrant/embedded/lib with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64'
