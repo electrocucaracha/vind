@@ -6,13 +6,11 @@
 ### Usage
 
 Use this ```Dockerfile``` to build a base image for your integration
-tests in [Concourse CI](http://concourse.ci/).
+tests in [Concourse CI](http://concourse.ci/) or [Tekton CI/CD](https://tekton.dev/)
 
 Here is an example of a Concourse
 [job](https://concourse-ci.org/jobs.html) that uses
-```electrocucaracha/vind``` image to run a bunch of containers in a
-task, and then runs the integration test suite.
-
+`electrocucaracha/vind` image.
 
 ```yaml
   - name: integration
@@ -40,5 +38,30 @@ task, and then runs the integration test suite.
                 source /libvirtd-lib.sh
                 start_libvirtd
 
-                vagrant up
+                sudo -E vagrant up
+```
+
+Here is an example of a Tekton
+[pipeline](https://tekton.dev/docs/pipelines/pipelines/) that uses
+`electrocucaracha/vind` image.
+
+```yaml
+  tasks:
+    - name: vagrant-up
+      image: electrocucaracha/vind
+      script: |
+        source /libvirtd-lib.sh
+        start_libvirtd
+
+        cd src
+        sudo -E vagrant up
+      securityContext:
+        privileged: true
+        capabilities:
+          add:
+            - NET_ADMIN
+      resources:
+        inputs:
+          - name: repo
+            resource: src
 ```

@@ -1,0 +1,63 @@
+---
+# SPDX-license-identifier: Apache-2.0
+##############################################################################
+# Copyright (c)
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Apache License, Version 2.0
+# which accompanies this distribution, and is available at
+# http://www.apache.org/licenses/LICENSE-2.0
+##############################################################################
+
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: vind-git
+spec:
+  type: git
+  params:
+    - name: revision
+      value: master
+    - name: url
+      value: https://github.com/electrocucaracha/vind
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: vind-task
+spec:
+  resources:
+    inputs:
+      - name: repo
+        type: git
+        targetPath: src
+  steps:
+    - name: vagrant-up
+      image: electrocucaracha/vind
+      securityContext:
+        privileged: true
+        capabilities:
+          add:
+            - NET_ADMIN
+      script: |
+        source /libvirtd-lib.sh
+        start_libvirtd
+
+        cd src/tests
+        sudo -E vagrant up
+        uname -a
+        sudo -E vagrant ssh -- uname -a
+---
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: test-vind
+spec:
+  taskRef:
+    name: vind-task
+  podTemplate:
+    runtimeClassName: crun
+  resources:
+    inputs:
+      - name: repo
+        resourceRef:
+          name: vind-git
