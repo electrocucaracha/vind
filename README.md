@@ -10,7 +10,9 @@ tests in [Concourse CI](http://concourse.ci/) or [Tekton CI/CD](https://tekton.d
 
 Here is an example of a Concourse
 [job](https://concourse-ci.org/jobs.html) that uses
-`electrocucaracha/vind` image.
+`electrocucaracha/vind` image. This approach has some limitations and
+require special configuration in the worker node, for more information
+check this [link](https://github.com/concourse/concourse/issues/2784)
 
 ```yaml
   - name: integration

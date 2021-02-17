@@ -28,5 +28,6 @@ run:
       start_libvirtd
 
       cat /etc/os-release
-      vagrant up
-      vagrant ssh -- cat /etc/os-release
+      sudo -E vagrant up
+      uname -a
+      sudo -E vagrant ssh -- uname -a
