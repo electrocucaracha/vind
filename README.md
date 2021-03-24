@@ -51,11 +51,11 @@ Here is an example of a Tekton
   tasks:
     - name: vagrant-up
       image: electrocucaracha/vind
+      workingDir: /workspace/src/
       script: |
         source /libvirtd-lib.sh
         start_libvirtd
 
-        cd src
         sudo -E vagrant up
       securityContext:
         privileged: true
