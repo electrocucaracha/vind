@@ -26,6 +26,7 @@ spec:
   steps:
     - name: vagrant-up
       image: electrocucaracha/vind
+      workingDir: /workspace/src/
       securityContext:
         privileged: true
         capabilities:
@@ -35,5 +36,4 @@ spec:
         source /libvirtd-lib.sh
         start_libvirtd
 
-        cd src
         sudo -E vagrant up $(params.vagrant_name)
