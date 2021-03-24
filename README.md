@@ -3,7 +3,7 @@
 [![Docker](https://images.microbadger.com/badges/image/electrocucaracha/vind.svg)](http://microbadger.com/images/electrocucaracha/vind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-### Usage
+## Usage
 
 Use this ```Dockerfile``` to build a base image for your integration
 tests in [Concourse CI](http://concourse.ci/) or [Tekton CI/CD](https://tekton.dev/)
