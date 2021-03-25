@@ -32,7 +32,7 @@ function start_libvirtd {
     mkdir -p "$(dirname "$LIBVIRTD_PIDFILE")"
     eval "/usr/sbin/libvirtd -d -l $LIBVIRTD_OPTS"
     mkdir -p /dev/net
-    mknod -m 0600 /dev/net/tun c 10 200
+    [ -c /dev/net/tun ] || mknod -m 0600 /dev/net/tun c 10 200
 }
 
 function stop_libvirtd {
