@@ -7,7 +7,16 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 
+DOCKER_CMD ?= $(shell which docker 2> /dev/null || which podman 2> /dev/null || echo docker)
+IMAGE_VERSION ?= $(shell git describe --abbrev=0 --tags)
+IMAGE_NAME=electrocucaracha/vind:$(IMAGE_VERSION)
+
 .PHONY: build
 build:
-	@docker build -t electrocucaracha/vind .
-	@docker image prune --force
+	sudo -E $(DOCKER_CMD) build -t $(IMAGE_NAME) .
+	sudo -E $(DOCKER_CMD) image prune --force
+push: build
+	docker-squash $(IMAGE_NAME)
+	sudo -E $(DOCKER_CMD) push $(IMAGE_NAME)
+buildx:
+	sudo -E $(DOCKER_CMD) buildx build --platform linux/amd64,linux/arm64 -t $(IMAGE_NAME) --push .
