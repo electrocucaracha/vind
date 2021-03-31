@@ -2,6 +2,7 @@
 
 [![Docker](https://images.microbadger.com/badges/image/electrocucaracha/vind.svg)](http://microbadger.com/images/electrocucaracha/vind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![GitHub Super-Linter](https://github.com/electrocucaracha/vind/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 ## Usage
 

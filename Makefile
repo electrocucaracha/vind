@@ -11,6 +11,9 @@ DOCKER_CMD ?= $(shell which docker 2> /dev/null || which podman 2> /dev/null || 
 IMAGE_VERSION ?= $(shell git describe --abbrev=0 --tags)
 IMAGE_NAME=electrocucaracha/vind:$(IMAGE_VERSION)
 
+lint:
+	sudo -E $(DOCKER_CMD) run -e RUN_LOCAL=true --rm -e LINTER_RULES_PATH=/ -v $$(pwd):/tmp/lint github/super-linter
+
 .PHONY: build
 build:
 	sudo -E $(DOCKER_CMD) build -t $(IMAGE_NAME) .
