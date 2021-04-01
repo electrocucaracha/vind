@@ -1,6 +1,6 @@
 FROM kubevirt/libvirt:20210125-585df1e
 
-ENV VAGRANT_VERSION=2.2.14
+ENV VAGRANT_VERSION=2.2.15
 ENV CONFIGURE_ARGS='with-ldflags=-L/opt/vagrant/embedded/lib with-libvirt-include=/usr/include/libvirt with-libvirt-lib=/usr/lib64'
 ENV GEM_HOME=~/.vagrant.d/gems
 ENV GEM_PATH=$GEM_HOME:/opt/vagrant/embedded/gems
