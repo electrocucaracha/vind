@@ -17,6 +17,12 @@ if ! command -v docker; then
     curl -fsSL http://bit.ly/install_pkg | PKG=docker bash
 fi
 
+# NOTE: https://github.com/kubevirt/kubevirt/issues/4303#issuecomment-749243768
+if ! grep -q "/usr/libexec/qemu-kvm PUx," /etc/apparmor.d/usr.sbin.libvirtd; then
+    sudo sed -i '/\/usr\/bin\/\* PUx,/a \ \ \/usr\/libexec\/qemu-kvm PUx,' /etc/apparmor.d/usr.sbin.libvirtd
+    sudo systemctl reload apparmor.service
+fi
+
 docker run --rm --privileged --workdir /tmp/ --entrypoint bash \
     --mount "type=bind,source=$(pwd)/Vagrantfile,target=/tmp/Vagrantfile" \
     electrocucaracha/vind \
